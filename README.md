@@ -32,13 +32,13 @@
 In order to run GENtle locally in development mode, you need to follow these
 steps:
 
-1. Install node in version `^0.11`. See [n](https://github.com/visionmedia/n)
-  for managing node versions. Version `^0.11` is necessary because we use
-  [koa](koajs.com) which relies on ES6
-1. Install the `node-foreman` and `nodemon` node packages globally
+1. Install node in version `0.11.x`. See [n](https://github.com/visionmedia/n)
+  for managing node versions. Version `0.11.x` is necessary because we use
+  [koa](http://koajs.com/#installation) which relies on ES6
+1. Install the `node-foreman`, `nodemon` and `yuidocjs` node packages globally
 
     ```shell
-    npm install -g foreman nodemon
+    npm install -g foreman nodemon yuidocjs
     ```
 
 1. Install local npm packages
