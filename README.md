@@ -32,15 +32,15 @@
 In order to run GENtle locally in development mode, you need to follow these
 steps:
 
-1. Install node in version `^0.11`. See [n](https://github.com/visionmedia/n) 
-  for managing node versions. Version `^0.11` is necessary because we use 
+1. Install node in version `^0.11`. See [n](https://github.com/visionmedia/n)
+  for managing node versions. Version `^0.11` is necessary because we use
   [koa](koajs.com) which relies on ES6
 1. Install the `node-foreman` and `nodemon` node packages globally
 
     ```shell
     npm install -g foreman nodemon
     ```
-  
+
 1. Install local npm packages
 
     ```shell
@@ -73,12 +73,12 @@ GENtle will be accessible at [http://localhost:8081](http://localhost:8081)
 
 ### Recompiling assets
 
-All compilation tasks use [grunt](http://gruntjs.com) and are defined in 
-`gruntfile.js`. 
+All compilation tasks use [grunt](http://gruntjs.com) and are defined in
+`gruntfile.js`.
 
 #### Stylesheets
 
-Stylesheets are writen in [SCSS](http://sass-lang.com). To compile new changes, 
+Stylesheets are writen in [SCSS](http://sass-lang.com). To compile new changes,
 run:
 
 ```shell
@@ -92,7 +92,7 @@ templates, transform ES6 files and generate the bundle, `app.min.js`.
 
 To generate an unminified bundle, run:
 
-```shell 
+```shell
 grunt js
 ```
 
@@ -102,7 +102,7 @@ To generate a minified bundle, run:
 grunt js:min
 ```
 
-The compiled script (`public/scripts/app.min.js`) is ignored by git. 
+The compiled script (`public/scripts/app.min.js`) is ignored by git.
 
 __The app is automatically compiled and minified when deploying via the `postinstall` npm hook.__
 
@@ -112,14 +112,14 @@ To automatically recompile assets when sources change, run:
 
 ```shell
 # Watch and recompile everything
-grunt w 
+grunt w
 # Watch and recompile stylesheets
-grunt watch:css 
+grunt watch:css
 # Watch and recompile javascripts
 grunt browserify:watch
 ```
 
-JS continuous compilation uses watchify which makes it very quick to update when 
+JS continuous compilation uses watchify which makes it very quick to update when
 files changes.
 
 ### Running specs
@@ -137,7 +137,7 @@ Specs are run in PhantomJS so all happens in the CLI.
 #### Running the server
 
 1. Run `karma start` once to start the server
-2. Run `karma run` to run the specs. 
+2. Run `karma run` to run the specs.
 
 ## Server
 
@@ -145,16 +145,16 @@ We use [koa](koajs.com) to route and serve the assets. For now, there is only
 one route: `routes/index.js`, serving the `views/index.jade` [jade](http://jade-lang.com)
 file.
 
-Any change to koa routes or views will trigger a refresh of the server 
+Any change to koa routes or views will trigger a refresh of the server
 since we use `nodemon`.
 
 
 ## App
 
-The app itself uses `browserify` to load the different 
+The app itself uses `browserify` to load the different
 source files and manage dependency injection.
 
-We now use the [ES6 module syntax](http://24ways.org/2014/javascript-modules-the-es6-way/) to load modules. 
+We now use the [ES6 module syntax](http://24ways.org/2014/javascript-modules-the-es6-way/) to load modules.
 Legacy modules using AMD-syntax are still compatible.
 
 Non-NPM module aliases are defined in the `package.json` file.
@@ -191,7 +191,7 @@ We use [backbone](http://backbonejs.org) along with the following plugins:
 * [deepmodel](https://github.com/powmedia/backbone-deep-model) to handle nested
   attributes in models, as a simpler alternative to formal associations
 
-To ensure backbone dependencies are properly loaded in your files, require 
+To ensure backbone dependencies are properly loaded in your files, require
 `backbone.mixed` instead of `backbone`.
 
 ```js
@@ -201,7 +201,7 @@ var Backbone = require('backbone.mixed');
 
 #### Underscore
 
-[Underscore](http://underscorejs.org) is a backbone dependency but also 
+[Underscore](http://underscorejs.org) is a backbone dependency but also
 quite a powerful tool. Custom methods are defined in `common/lib/underscore.mixed.js`.
 
 To ensure custom methods are properly mixed in, require `underscore.mixed` instead
