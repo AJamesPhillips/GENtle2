@@ -12,7 +12,6 @@ define(function(require) {
   Layout = Backbone.Layout.extend({
     el: '#wrapper',
     template: template,
-    manage: false,
 
     initialize: function() {
       this.setView('#navbar', new NavbarView());
