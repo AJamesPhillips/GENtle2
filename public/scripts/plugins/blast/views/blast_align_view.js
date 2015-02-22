@@ -43,8 +43,7 @@ export default Backbone.View.extend({
     this.currentMismatch = undefined;
 
     if(parentView) {
-      this.blastRequest = this.blastRequest || parentView.blastRequest;
-      this.result = _.find(this.blastRequest.results, {id: parentView.resultId});
+      this.result = _.find(parentView.blastRequest.results, {id: parentView.resultId});
       this.model = Gentle.currentSequence;
 
       if(this.result) {
