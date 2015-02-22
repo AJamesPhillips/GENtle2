@@ -32,7 +32,7 @@ export default Backbone.View.extend({
 
     if(this.model.get('meta.blast.RID')) this.getRID();
 
-    _.bindAll(this, 
+    _.bindAll(this,
       'incrementProgressBar',
       'handleBlastRequestError'
     );
@@ -45,7 +45,7 @@ export default Backbone.View.extend({
   initDatabases: function() {
     this.databases = _.map(BlastRequest.databases, function(name, value) {
       return {
-        name: name, 
+        name: name,
         value: value
       };
     });
@@ -71,6 +71,7 @@ export default Backbone.View.extend({
   },
 
   getRID: function() {
+    // Get RID (Request ID) of blastRequest posted to NCBI
     var $el = this.$('#blast-intro-run');
     $el.attr('disabled', 'disabled');
     $el.find('.btn-label').text('Initiating request with NCBI');
@@ -83,6 +84,7 @@ export default Backbone.View.extend({
     this.$('.alert-danger').hide();
 
     this.blastRequest.getRequestId(this.database).then(() => {
+      // TODO:  Check what this conditional is aiming to do.
       if(!this.blastRequest) return;
       this.render();
       this.getResults();
@@ -104,7 +106,7 @@ export default Backbone.View.extend({
         case 'NO_RID':
           this.NCBIError = "We could not receive a request ID from NCBI. You can try again later.";
           break;
-        default: 
+        default:
           this.NCBIError = error.message || 'An error occurred';
           break;
       }

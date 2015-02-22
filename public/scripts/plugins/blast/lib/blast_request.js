@@ -14,7 +14,7 @@ var each = _.each;
 var isUndefined = _.isUndefined;
 
 var databases =  {
-  nr: "Nucleotide collection (nr/nt)",   
+  nr: "Nucleotide collection (nr/nt)",
   refseq_rna: "Reference RNA sequences (refseq_rna)",
   refseq_genomic: "Reference genomic sequences (refseq_genomic)",
   chromosome: "NCBI Genomes (chromosome)",
@@ -33,7 +33,7 @@ var databases =  {
 var BlastRequest = class {
   constructor(sequence) {
     this.sequence = sequence;
-    
+
     this.hitlistSize = 20;
     this._loadingRIDPromise = false;
     this._loadingResultsDefer = false;
@@ -49,23 +49,20 @@ var BlastRequest = class {
     this.results = sequence.get('meta.blast.results') || [];
     this.resultsLoaded = !!this.results.length;
 
-    _.bindAll(this, 
-      'getResults', 
-      '_processResults', 
-      '_parseRIDResponse', 
+    _.bindAll(this,
+      'getResults',
+      '_processResults',
+      '_parseRIDResponse',
       '_parseResultsResponse',
       '_formatHsp'
     );
   }
 
   getRequestId(database) {
-    if(!isUndefined(database) && _.has(databases, database)) 
+    if(!isUndefined(database) && _.has(databases, database))
       this.database = database;
 
     this._loadingRIDPromise = this._loadingRIDPromise || Q.promise((resolve, reject) => {
-      // var selector = "//input[@type = 'hidden' and @name = 'RID'] | //comment()";
-      var selector = "//input[@type = 'hidden' and @name = 'RID']";
-
       if(this.RID) {
         this._loadingRIDPromise = false;
         this.RIDLoading = false;
@@ -93,14 +90,14 @@ var BlastRequest = class {
           this.RIDLoading = false;
         });
 
-      } 
+      }
     });
 
     return this._loadingRIDPromise;
   }
 
   getResults(database) {
-    if(!isUndefined(database) && _.has(databases, database)) 
+    if(!isUndefined(database) && _.has(databases, database))
       this.database = database;
 
     var defer = this._loadingResultsDefer = this._loadingResultsDefer || Q.defer();
@@ -202,7 +199,7 @@ var BlastRequest = class {
 
     if(isObject(data)) {
       this.resultsLoaded = true;
-      this.results = this._formatResults(data); 
+      this.results = this._formatResults(data);
       this.sequence.saveBlastResults(this.results);
       defer.resolve(this.results);
     } else {
@@ -218,7 +215,7 @@ var BlastRequest = class {
 
   _formatResults(data) {
     var hits = data.iteration_hits;
-    if (isObject(hits)) {
+    if(isObject(hits)) {
       return map(hits.hit, (sequence) => {
         var hsps = sequence.hit_hsps.hsp;
 
@@ -226,8 +223,8 @@ var BlastRequest = class {
           name: sequence.hit_def,
           NCBIAccessionId: sequence.hit_accession,
           id: _.uniqueId(),
-          hsps: _.isArray(hsps) ? 
-            map(hsps, this._formatHsp) : 
+          hsps: _.isArray(hsps) ?
+            map(hsps, this._formatHsp) :
             [this._formatHsp(hsps)]
         };
       });
@@ -260,7 +257,7 @@ var BlastRequest = class {
     console.log('hsp', blastHsp)
 
     each([
-      'align-len', 'bit-score', 'evalue', 
+      'align-len', 'bit-score', 'evalue',
       'gaps', 'hit-frame', 'hit-from',
       'hit-to', 'identity', 'num',
       'positive', 'query-frame', 'query-from',

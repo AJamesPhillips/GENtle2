@@ -79,7 +79,7 @@ define(function(require) {
       return $('#sequence-secondary-view-outlet').width();
     },
 
-     primaryViewLeftPos: function() {
+    primaryViewLeftPos: function() {
       return $('#sequence-primary-view-outlet').width();
     },
 

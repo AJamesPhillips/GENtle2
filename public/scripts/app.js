@@ -23,7 +23,7 @@ var plugins = [ncbi, designer, blast, pcr];
 Gentle = Gentle();
 
 Gentle.config = config;
-  
+
 Gentle.sequences = new Sequences();
 
 Gentle.sequences.fetch();
@@ -35,6 +35,8 @@ $(function() {
   Gentle.layout = new Layout();
   Backbone.history.start();
 
+  // TODO: Document this behaviour if there are any plugins that require this,
+  // otherwise we can remove.
   _.each(_.where(Gentle.plugins, {type: 'init'}), function(plugin) {
     plugin.data.afterDomReady && plugin.data.afterDomReady(Gentle);
   });
