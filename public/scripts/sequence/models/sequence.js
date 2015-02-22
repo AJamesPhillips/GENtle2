@@ -41,9 +41,9 @@ export default Backbone.DeepModel.extend({
     var defaults = this.defaults();
     Backbone.DeepModel.apply(this, arguments);
     this.sortFeatures();
-    if(this.get('displaySettings.rows.res.lengths') === undefined) 
+    if(this.get('displaySettings.rows.res.lengths') === undefined)
       this.set('displaySettings.rows.res.lengths', defaults.displaySettings.rows.res.lengths);
-    if(this.get('displaySettings.rows.res.custom') === undefined) 
+    if(this.get('displaySettings.rows.res.custom') === undefined)
       this.set('displaySettings.rows.res.custom', defaults.displaySettings.rows.res.manual);
     this.maxOverlappingFeatures = _.memoize2(this._maxOverlappingFeatures);
     this.nbFeaturesInRange = _.memoize2(this.nbFeaturesInRange);
@@ -237,7 +237,7 @@ export default Backbone.DeepModel.extend({
      //    value: bases,
      //    operation: '@' + beforeBase + '+' + bases
      //  });
-    
+
     this.set('sequence',
       seq.substr(0, beforeBase) +
       bases +
@@ -265,7 +265,7 @@ export default Backbone.DeepModel.extend({
         history = this.getHistory(),
         _this = this,
         featuresInRange, subSeq, deletionTimestamp, insertionTimestamp;
-    
+
     if(updateHistory === undefined) updateHistory = true;
 
     featuresInRange = _.deepClone(_.filter(this.get('features'), function(feature) {
@@ -278,9 +278,9 @@ export default Backbone.DeepModel.extend({
 
     deletionTimestamp = this.deleteBases(firstBase, length, updateHistory);
     insertionTimestamp = this.insertBases(
-      subSeq, 
-      newFirstBase < firstBase ? 
-        newFirstBase : 
+      subSeq,
+      newFirstBase < firstBase ?
+        newFirstBase :
         newFirstBase - length
     );
 
@@ -288,8 +288,8 @@ export default Backbone.DeepModel.extend({
       feature.ranges = _.map(_.filter(feature.ranges, function(range) {
         return range.from >= firstBase && range.to <= lastBase;
       }), function(range) {
-        var offset = newFirstBase < firstBase ? 
-          newFirstBase - firstBase : 
+        var offset = newFirstBase < firstBase ?
+          newFirstBase - firstBase :
           newFirstBase - length - firstBase;
 
         return {
@@ -306,7 +306,7 @@ export default Backbone.DeepModel.extend({
   insertBasesAndCreateFeatures: function(beforeBase, bases, features, updateHistory) {
     var newFeatures = _.deepClone(_.isArray(features) ? features : [features]),
         _this = this;
-    
+
     this.insertBases(bases, beforeBase, updateHistory);
 
     _.each(newFeatures,function(feature){
@@ -319,14 +319,14 @@ export default Backbone.DeepModel.extend({
       delete feature.from;
       delete feature.to;
 
-      _this.createFeature(feature, updateHistory); 
+      _this.createFeature(feature, updateHistory);
     });
   },
 
   insertSequenceAndCreateFeatures: function(beforeBase, bases, features, updateHistory) {
     var newFeatures = _.deepClone(_.isArray(features) ? features : [features]),
         _this = this;
-    
+
     this.insertBases(bases, beforeBase, updateHistory);
 
     _.each(newFeatures,function(feature){
@@ -338,9 +338,9 @@ export default Backbone.DeepModel.extend({
         };
       });
 
-      _this.createFeature(feature, updateHistory); 
+      _this.createFeature(feature, updateHistory);
     });
-  }, 
+  },
 
   deleteBases: function(firstBase, length, updateHistory) {
     var seq = this.get('sequence'),
@@ -406,7 +406,7 @@ export default Backbone.DeepModel.extend({
           var range = feature.ranges[j];
 
           if (offset > 0) {
-            
+
             if (range.from >= base) range.from += offset;
             if (range.to >= base) range.to += offset;
             if (range.from >= base || range.to >= base) trigger = true;
@@ -468,8 +468,8 @@ export default Backbone.DeepModel.extend({
   },
 
   /**
-  Revert the last {{#crossLink "HistoryStep"}}{{/crossLink}} instance in 
-  {{#crossLink "Sequence/getHistory"}}{{/crossLink}} for which `hidden` is not 
+  Revert the last {{#crossLink "HistoryStep"}}{{/crossLink}} instance in
+  {{#crossLink "Sequence/getHistory"}}{{/crossLink}} for which `hidden` is not
   `true`
   @method undo
   **/
@@ -495,7 +495,7 @@ export default Backbone.DeepModel.extend({
 
   /**
   Reverts all {{#crossLink "HistoryStep"}}{{/crossLink}} instances after `timestamp`
-  in {{#crossLink "Sequence/getHistory"}}Sequence#getHistory{{/crossLink}} for which `hidden` is not 
+  in {{#crossLink "Sequence/getHistory"}}Sequence#getHistory{{/crossLink}} for which `hidden` is not
   `true`
   @method undoAfter
   @param {integer} timestamp
@@ -585,7 +585,7 @@ export default Backbone.DeepModel.extend({
 
     if (record === true) {
       this.recordFeatureHistoryIns(newFeature);
-    } 
+    }
     // if (record === 'design-true')
     // this.getHistory().add({
     //   type: 'design-feature-create',
@@ -597,7 +597,7 @@ export default Backbone.DeepModel.extend({
     //     from: newFeature.ranges[0].from,
     //     to: newFeature.ranges[0].to
     //   }]
-    // }).get('timestamp');  
+    // }).get('timestamp');
 
     if (id === 0) {
       newFeature._id = 0;
@@ -606,7 +606,7 @@ export default Backbone.DeepModel.extend({
       len = sortedIdList.length;
       newFeature._id = sortedIdList[len-1]+1;
     }
-  
+
     this.clearFeatureCache();
     this.set('features.' + id, newFeature);
     this.sortFeatures();
@@ -638,7 +638,7 @@ export default Backbone.DeepModel.extend({
     this.set('features', _.reject(this.get('features'), function(_feature) {
       return _feature._id == featureId;
     }));
-   
+
     this.sortFeatures();
     this.throttledSave();
   },
