@@ -709,7 +709,10 @@ export default Backbone.DeepModel.extend({
   },
 
   throttledSave: function() {
-    return _.throttle(_.bind(this.save, this), 100)();
+    if(!this._throttledSaveFunction) {
+      this._throttledSaveFunction = _.throttle(_.bind(this.save, this), 100);
+    }
+    return this._throttledSaveFunction();
   },
 
   clearBlastCache: function() {
