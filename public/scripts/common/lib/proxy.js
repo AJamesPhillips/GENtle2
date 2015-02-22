@@ -16,8 +16,8 @@ export default {
   },
 
   yqlExtractHtml: function(url, data, xpathSelector) {
-    var query = "SELECT * FROM html WHERE compat='html5' " +
-      "AND xpath='" + xpathSelector.replace(/'/g, '"') + "'";
+    var query = "SELECT * FROM html WHERE compat='html5'" +
+      " AND xpath='" + xpathSelector.replace(/'/g, '"') + "'";
 
     return this.yqlQuery(query, url, data).then(function(data) {
       return typeof data.query.results == 'object' ?
@@ -30,8 +30,8 @@ export default {
     xpathSelector = xpathSelector || '//body';
 
     var query = 'SELECT * FROM htmlpost WHERE' +
-      'postdata=\'' + this.serializeParams(data) + '\' ' +
-      'AND xpath=\'' + xpathSelector.replace(/'/g, '"') + '\'';
+      ' postdata=\'' + this.serializeParams(data) + '\' ' +
+      ' AND xpath=\'' + xpathSelector.replace(/'/g, '"') + '\'';
 
     return this.yqlQuery(query, url, {}, 'POST', 'xml');
   },
