@@ -91,7 +91,7 @@ define(function(require) {
         @default `this.view.model`
     **/
     this.sequence = options.sequence || this.view.model;
-    this.readOnly = !!(typeof options.readOnly === 'undefined' ? this.sequence.get('readOnly') : options.readOnly);
+    this.readOnly = !!(_.isUndefined(options.readOnly) ? this.sequence.get('readOnly') : options.readOnly);
 
     /**
         @property layoutSettings
