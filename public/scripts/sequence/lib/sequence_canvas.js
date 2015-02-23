@@ -91,7 +91,7 @@ define(function(require) {
         @default `this.view.model`
     **/
     this.sequence = options.sequence || this.view.model;
-    this.readOnly = !!this.sequence.get('readOnly');
+    this.readOnly = !!(_.isUndefined(options.readOnly) ? this.sequence.get('readOnly') : options.readOnly);
 
     /**
         @property layoutSettings
@@ -261,7 +261,6 @@ define(function(require) {
 
     // Kickstart rendering
     this.refresh();
-//    console.log('test')
   };
 
   _.extend(SequenceCanvas.prototype, Backbone.Events);

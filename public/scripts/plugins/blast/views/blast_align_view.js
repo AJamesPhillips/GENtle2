@@ -199,6 +199,7 @@ export default Backbone.View.extend({
           }],
           bottomSeparator: ['Blank', { height: 5 }],
         },
+        readOnly: true,
       });
       
       sequenceCanvas.refresh();
